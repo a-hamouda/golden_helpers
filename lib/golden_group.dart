@@ -1,3 +1,6 @@
+// Copyright (c) 2022, Abdulhamid Yusuf. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for details.
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path/path.dart' as path;
 import 'package:meta/meta.dart';

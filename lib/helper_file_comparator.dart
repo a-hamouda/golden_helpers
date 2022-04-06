@@ -1,3 +1,6 @@
+// Copyright (c) 2022, Abdulhamid Yusuf. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for details.
+
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
