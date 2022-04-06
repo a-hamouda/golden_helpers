@@ -1,6 +1,6 @@
 name: golden_helpers
 description: A set of helpers for golden tests.
-version: 0.0.2
+version: 0.0.3
 publish_to: none
 
 environment:
@@ -8,6 +8,7 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  collection: ^1.15.0
   flutter:
     sdk: flutter
   flutter_test:

@@ -48,7 +48,7 @@ file://${goldenFile.absolute.path}\u001b[0m\n'''));
         await goldenFile.parent.delete(recursive: true);
         goldenFileComparator = originalGoldenFileComparator;
       });
-    });
+    }, skip: true);
   });
 
   testWidgets(
@@ -93,5 +93,5 @@ file://${goldenFile.absolute.path}\u001b[0m\n'''));
       await goldenFile.parent.delete(recursive: true);
       goldenFileComparator = originalGoldenFileComparator;
     });
-  });
+  }, skip: true);
 }
