@@ -1,6 +1,6 @@
 name: golden_helpers
 description: A set of helpers for golden tests.
-version: 0.0.3
+version: 0.1.0
 publish_to: none
 
 environment:

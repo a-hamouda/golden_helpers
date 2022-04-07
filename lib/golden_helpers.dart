@@ -5,3 +5,4 @@ library golden_helpers;
 
 export 'golden_group.dart';
 export 'golden_configuration.dart' hide currentConfiguration;
+export 'golden_animation.dart';
