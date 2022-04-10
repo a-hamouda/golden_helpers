@@ -65,21 +65,25 @@ void _testUsecase({
     await tester.pumpWidget(
       MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: currentConfiguration.themeData,
-        locale: effectiveLocale,
-        localizationsDelegates: currentConfiguration.localizationDelegates,
-        home: Center(
-          child: RepaintBoundary(
-            child: Material(child: builder(key)),
+        home: Theme(
+          data: currentConfiguration.themeData,
+          child: Localizations(
+            locale: effectiveLocale,
+            delegates: currentConfiguration.localizationDelegates.toList(),
+            child: Center(
+              child: RepaintBoundary(
+                child: Material(child: builder(key)),
+              ),
+            ),
           ),
         ),
       ),
     );
-    await tester.pumpAndSettle();
 
     final context = tester.element(find.byKey(key));
     await tester.runAsync<void>(
         () async => currentConfiguration.cachingSetup?.call(context));
+    await tester.pumpAndSettle();
     await act?.call(tester, key, context);
 
     // assert
