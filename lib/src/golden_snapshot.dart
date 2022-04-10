@@ -16,6 +16,7 @@ void goldenSnapshotTest({
   Future<void> Function(WidgetTester tester, Key key, BuildContext context)?
       act,
   List<Locale> locales = const [],
+  List<LocalizationsDelegate<dynamic>>? localizationDelegates,
   bool skip = false,
 }) async {
   if (locales.isEmpty) {
@@ -35,6 +36,7 @@ void goldenSnapshotTest({
         builder: builder,
         version: version,
         locale: locale,
+        localizationDelegates: localizationDelegates,
         act: act,
         skip: skip,
       );
@@ -50,6 +52,7 @@ void _testUsecase({
   Future<void> Function(WidgetTester tester, Key key, BuildContext context)?
       act,
   Locale? locale,
+  List<LocalizationsDelegate<dynamic>>? localizationDelegates,
   bool? skip,
 }) {
   final effectiveDescription = locale == null
@@ -62,6 +65,9 @@ void _testUsecase({
 
     // act
     final effectiveLocale = locale ?? currentConfiguration.locale;
+    final effectiveLocalizationDelegates = localizationDelegates ??
+        currentConfiguration.localizationDelegates.toList();
+
     await tester.pumpWidget(
       MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -69,7 +75,7 @@ void _testUsecase({
           data: currentConfiguration.themeData,
           child: Localizations(
             locale: effectiveLocale,
-            delegates: currentConfiguration.localizationDelegates.toList(),
+            delegates: effectiveLocalizationDelegates,
             child: Center(
               child: RepaintBoundary(
                 child: Material(
