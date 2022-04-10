@@ -29,11 +29,15 @@ void goldenAnimationTest({
     await tester.pumpWidget(
       MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: currentConfiguration.themeData,
-        localizationsDelegates: currentConfiguration.localizationDelegates,
-        home: Center(
-          child: RepaintBoundary(
-            child: Material(child: builder(key)),
+        home: Theme(
+          data: currentConfiguration.themeData,
+          child: Center(
+            child: RepaintBoundary(
+              child: Material(
+                type: MaterialType.transparency,
+                child: builder(key),
+              ),
+            ),
           ),
         ),
       ),
