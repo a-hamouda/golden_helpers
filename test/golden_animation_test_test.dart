@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:golden_helpers/golden_animation.dart';
-import 'package:golden_helpers/golden_group.dart';
+import 'package:golden_helpers/src/golden_animation.dart';
+import 'package:golden_helpers/src/golden_group.dart';
 
 void main() {
   goldenGroup(

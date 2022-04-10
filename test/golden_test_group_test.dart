@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:golden_helpers/golden_group.dart';
-import 'package:golden_helpers/helper_file_comparator.dart';
+import 'package:golden_helpers/src/golden_group.dart';
+import 'package:golden_helpers/src/helper_file_comparator.dart';
 
 void main() {
   goldenGroup('goldenGroup tests', () {

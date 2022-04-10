@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:golden_helpers/helper_file_comparator.dart';
+import 'package:golden_helpers/src/helper_file_comparator.dart';
 import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';

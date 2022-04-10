@@ -4,8 +4,8 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:golden_helpers/golden_configuration.dart';
-import 'package:golden_helpers/golden_snapshot.dart';
+import 'package:golden_helpers/src/golden_configuration.dart';
+import 'package:golden_helpers/src/golden_snapshot.dart';
 
 void main() {
   group('goldenSnapshotTest tests', () {
