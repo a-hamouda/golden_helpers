@@ -72,7 +72,10 @@ void _testUsecase({
             delegates: currentConfiguration.localizationDelegates.toList(),
             child: Center(
               child: RepaintBoundary(
-                child: Material(child: builder(key)),
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: builder(key),
+                ),
               ),
             ),
           ),
