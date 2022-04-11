@@ -4,11 +4,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:meta/meta.dart';
 
-import 'golden_configuration.dart';
 import 'package:path/path.dart' as path;
 
 const _frameDuration = Duration(milliseconds: 16, microseconds: 683);
 
+/// A function to perform golden animation tests.
+///
+/// This function sets up a widget test that captures frames of an animation
+/// and compares them against golden files to ensure the animation renders
+/// correctly over time.
+///
+/// Parameters:
+/// - [description]: A description of the test.
+/// - [animationName]: The name of the animation being tested.
+/// - [version]: The version of the golden file.
+/// - [builder]: A function that builds the widget to be tested.
+/// - [act]: An optional function that performs actions on the widget tester.
+/// - [timeout]: The maximum duration to wait for the animation to complete.
+/// - [parentDirectory]: The directory where the golden files are stored.
+/// - [skip]: Whether to skip this test.
 @isTest
 void goldenAnimationTest({
   required String description,
@@ -29,14 +43,11 @@ void goldenAnimationTest({
     await tester.pumpWidget(
       MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: Theme(
-          data: currentConfiguration.themeData,
-          child: Center(
-            child: RepaintBoundary(
-              child: Material(
-                type: MaterialType.transparency,
-                child: builder(key),
-              ),
+        home: Center(
+          child: RepaintBoundary(
+            child: Material(
+              type: MaterialType.transparency,
+              child: builder(key),
             ),
           ),
         ),

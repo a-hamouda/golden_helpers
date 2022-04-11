@@ -7,6 +7,18 @@ import 'package:meta/meta.dart';
 
 import 'golden_configuration.dart';
 
+/// A function to perform golden snapshot tests.
+///
+/// This function sets up a widget test that captures a snapshot of a widget
+/// and compares it against a golden file to ensure the widget renders correctly.
+///
+/// Parameters:
+/// - [description]: A description of the test.
+/// - [snapshotName]: The name of the snapshot being tested.
+/// - [version]: The version of the golden file.
+/// - [builder]: A function that builds the widget to be tested.
+/// - [act]: An optional function that performs actions on the widget tester.
+/// - [skip]: Whether to skip this test.
 @isTest
 void goldenSnapshotTest({
   required String description,
@@ -15,74 +27,22 @@ void goldenSnapshotTest({
   required Widget Function(Key key) builder,
   Future<void> Function(WidgetTester tester, Key key, BuildContext context)?
       act,
-  List<Locale> locales = const [],
-  List<LocalizationsDelegate<dynamic>>? localizationDelegates,
   bool skip = false,
 }) async {
-  if (locales.isEmpty) {
-    _testUsecase(
-      description: description,
-      snapshotName: snapshotName,
-      builder: builder,
-      version: version,
-      act: act,
-      skip: skip,
-    );
-  } else {
-    for (final locale in locales) {
-      _testUsecase(
-        description: description,
-        snapshotName: snapshotName,
-        builder: builder,
-        version: version,
-        locale: locale,
-        localizationDelegates: localizationDelegates,
-        act: act,
-        skip: skip,
-      );
-    }
-  }
-}
-
-void _testUsecase({
-  required String description,
-  required String snapshotName,
-  required Widget Function(Key key) builder,
-  required int version,
-  Future<void> Function(WidgetTester tester, Key key, BuildContext context)?
-      act,
-  Locale? locale,
-  List<LocalizationsDelegate<dynamic>>? localizationDelegates,
-  bool? skip,
-}) {
-  final effectiveDescription = locale == null
-      ? description
-      : '$description - Locale_${locale.languageCode}';
-
-  testWidgets(effectiveDescription, (tester) async {
+  testWidgets(description, (tester) async {
     // arrange
     final key = UniqueKey();
 
     // act
-    final effectiveLocale = locale ?? currentConfiguration.locale;
-    final effectiveLocalizationDelegates = localizationDelegates ??
-        currentConfiguration.localizationDelegates.toList();
 
     await tester.pumpWidget(
       MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: Theme(
-          data: currentConfiguration.themeData,
-          child: Localizations(
-            locale: effectiveLocale,
-            delegates: effectiveLocalizationDelegates,
-            child: Center(
-              child: RepaintBoundary(
-                child: Material(
-                  type: MaterialType.transparency,
-                  child: builder(key),
-                ),
-              ),
+        home: Center(
+          child: RepaintBoundary(
+            child: Material(
+              type: MaterialType.transparency,
+              child: builder(key),
             ),
           ),
         ),
@@ -96,9 +56,7 @@ void _testUsecase({
     await act?.call(tester, key, context);
 
     // assert
-    final snapshotFileName = locale == null
-        ? '${snapshotName}_v$version.png'
-        : '${snapshotName}_${locale.languageCode}_v$version.png';
+    final snapshotFileName = '${snapshotName}_v$version.png';
     await expectLater(find.byKey(key), matchesGoldenFile(snapshotFileName));
   }, skip: skip);
 }
